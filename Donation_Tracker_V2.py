@@ -227,7 +227,7 @@ with col_right:
     )
 
     # Generate Multiple Lantern Points along the Illuminated Path
-    LANTERN_SPACING_MILES = 100
+    LANTERN_SPACING_MILES = 50
 
     if miles_flown > 0:
         num_lanterns = max(1, int(miles_flown // LANTERN_SPACING_MILES) + 1)
