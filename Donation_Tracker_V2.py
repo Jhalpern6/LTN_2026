@@ -243,9 +243,9 @@ with col_right:
                     "lon": lon,
                     "icon_data": {
                         "url": lantern_url,
-                        "width": 64,
-                        "height": 128,
-                        "anchorY": 32,
+                        "width": 256,
+                        "height": 512,
+                        "anchorY": 512,
                         "anchorX": 128,
                         "mask": False,
                     },
