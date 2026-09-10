@@ -29,7 +29,7 @@ def get_base64_image(file_path: str) -> str:
     except FileNotFoundError:
         return ""
 
-# Refreshes automatically every 60 seconds to pull new Excel rows
+# Refreshes automatically every 60 seconds to pull new data
 @st.cache_data(ttl=60)
 def load_donation_data(file_path: str) -> pd.DataFrame:
     try:
@@ -137,11 +137,11 @@ total_raised = df["Donation Amount"].sum() if not df.empty else 0.0
 miles_flown = min(total_raised / COST_PER_MILE, TOTAL_DISTANCE_MILES)
 progress_pct = min(miles_flown / TOTAL_DISTANCE_MILES, 1.0)
 
-# Current Lantern Position (Linear Interpolation)
+# Current Lantern Position
 current_lat = MIA_LAT + (GSO_LAT - MIA_LAT) * progress_pct
 current_lon = MIA_LON + (GSO_LON - MIA_LON) * progress_pct
 
-# Description (Styled to match scorecard boxes)
+# Description
 st.markdown(
     """
     <div style="
@@ -190,7 +190,7 @@ with col_left:
     st.metric("Path Lit", f"{progress_pct * 100:.1f}%")
 
 with col_right:
-    # 1. Subtle Gold Glow Layer
+    # Gold Glow Layer
     gold_glow_layer = pdk.Layer(
         "LineLayer",
         data=[
@@ -202,7 +202,7 @@ with col_right:
         get_width=8,
     )
 
-    # 2. Crisp Gold Core Line
+    # Gold Core Line
     gold_core_layer = pdk.Layer(
         "LineLayer",
         data=[
@@ -214,7 +214,7 @@ with col_right:
         get_width=3,
     )
 
-    # Flight Remaining Line (Grey)
+    # Miles Remaining Line (Grey)
     grey_line_layer = pdk.Layer(
         "LineLayer",
         data=[
@@ -227,8 +227,7 @@ with col_right:
     )
 
     # Generate Multiple Lantern Points along the Illuminated Path
-    # Adjust LANTERN_SPACING_MILES to place lanterns closer or farther apart
-    LANTERN_SPACING_MILES = 100  # Places a lantern roughly every 50 miles
+    LANTERN_SPACING_MILES = 100
 
     if miles_flown > 0:
         num_lanterns = max(1, int(miles_flown // LANTERN_SPACING_MILES) + 1)
@@ -268,7 +267,7 @@ with col_right:
         pickable=False,
     )
 
-    # PyDeck Map Display (CARTO Dark Matter Vector Tiles)
+    # PyDeck Map Display
     st.pydeck_chart(
         pdk.Deck(
             layers=[
