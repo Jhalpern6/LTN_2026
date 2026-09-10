@@ -9,9 +9,9 @@ st.set_page_config(
 )
 
 # Constants
-BACKGROUND_IMAGE = "background_LTN.jpg"
-BCU_LOGO = "bcu_logo_LTN.jpg"
-LANTERN_IMAGE = "lantern.png"
+BACKGROUND_IMAGE = "assets/background_LTN.jpg"
+BCU_LOGO = "assets/bcu_logo_LTN.jpg"
+LANTERN_IMAGE = "assets/lantern.png"
 EXCEL_FILE = "LTN_2026_Donations.xlsx"
 
 MIA_LON, MIA_LAT = -80.1956, 25.7619
@@ -19,7 +19,6 @@ GSO_LON, GSO_LAT = -79.79472, 36.07667
 TOTAL_DISTANCE_MILES = 800
 COST_PER_MILE = 5
 GOAL_AMOUNT = TOTAL_DISTANCE_MILES * COST_PER_MILE
-
 
 # Cached File Operations
 @st.cache_data
@@ -29,7 +28,6 @@ def get_base64_image(file_path: str) -> str:
             return base64.b64encode(f.read()).decode()
     except FileNotFoundError:
         return ""
-
 
 # Refreshes automatically every 60 seconds to pull new Excel rows
 @st.cache_data(ttl=60)
