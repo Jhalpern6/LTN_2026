@@ -284,7 +284,7 @@ with col_right:
             ),
             map_style="https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
         ),
-        height=510,
+        height=525,
     )
 
 st.markdown(
