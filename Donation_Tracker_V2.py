@@ -261,7 +261,7 @@ with col_right:
         data=lantern_data,
         get_icon="icon_data",
         get_size=4,
-        size_scale=6,
+        size_scale=6.5,
         get_position=["lon", "lat"],
         get_angle="angle",
         pickable=False,
