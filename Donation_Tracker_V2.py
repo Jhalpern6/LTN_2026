@@ -16,20 +16,20 @@ LANTERN_IMAGE_GOLD = "assets/yellow_lantern.png"
 EXCEL_FILE = "LTN_2026_Donations.xlsx"
 
 # Geographic Coordinates
-MIA_LON, MIA_LAT = -80.1956, 25.7619      # Miami, FL (Start)
-GSO_LON, GSO_LAT = -79.79472, 36.07667    # Greensboro, NC (Leg 1)
-ROC_LON, ROC_LAT = -77.1528, 39.0840      # Rockville, MD (Stretch Goal Target)
+MIA_LON, MIA_LAT = -80.1956, 25.7619  # Miami, FL (Start)
+GSO_LON, GSO_LAT = -79.79472, 36.07667  # Greensboro, NC (Leg 1)
+ROC_LON, ROC_LAT = -77.1528, 39.0840  # Rockville, MD (Stretch Goal Target)
 
 LEG1_MILES = 800
-LEG2_MILES = 300                          # Greensboro to Rockville (300 Gold Miles)
+LEG2_MILES = 300  # Greensboro to Rockville (300 Gold Miles)
 TOTAL_DISTANCE_MILES = LEG1_MILES + LEG2_MILES  # 1,100 total physical miles
 
-LEG1_TARGET_AMOUNT = 4000.0               # $5/mile for 800 miles
-LEG2_TARGET_AMOUNT = 3000.0               # $10/mile for 300 miles ($3,000 total for Leg 2)
+LEG1_TARGET_AMOUNT = 4000.0  # $5/mile for 800 miles
+LEG2_TARGET_AMOUNT = 3000.0  # $10/mile for 300 miles ($3,000 total for Leg 2)
 GOAL_AMOUNT = LEG1_TARGET_AMOUNT + LEG2_TARGET_AMOUNT  # $7,000 Stretch Goal
 
 COST_PER_MILE_LEG1 = 5.0
-COST_PER_MILE_LEG2 = 10.0                 # $10 per Illuminating Gold Mile
+COST_PER_MILE_LEG2 = 10.0  # $10 per Illuminating Gold Mile
 
 
 # Cached File Operations
@@ -58,8 +58,14 @@ bg_base64 = get_base64_image(BACKGROUND_IMAGE)
 lantern_red_base64 = get_base64_image(LANTERN_IMAGE_RED)
 lantern_gold_base64 = get_base64_image(LANTERN_IMAGE_GOLD)
 
-lantern_red_url = f"data:image/png;base64,{lantern_red_base64}" if lantern_red_base64 else ""
-lantern_gold_url = f"data:image/png;base64,{lantern_gold_base64}" if lantern_gold_base64 else ""
+lantern_red_url = (
+    f"data:image/png;base64,{lantern_red_base64}" if lantern_red_base64 else ""
+)
+lantern_gold_url = (
+    f"data:image/png;base64,{lantern_gold_base64}"
+    if lantern_gold_base64
+    else ""
+)
 
 bg_css = (
     f"""
@@ -277,7 +283,6 @@ st.markdown(
         ">
             CAMPAIGN UPDATE: EXPANDING OUR PATH TO ROCKVILLE, MD!
         </h3>
-        </h3>
         <p style="
             color: #FFFFFF !important;
             -webkit-text-fill-color: #FFFFFF !important;
@@ -286,9 +291,9 @@ st.markdown(
             line-height: 1.6;
             margin: 0;
         ">
-        Together, we surpassed our initial $4,000 goal and illuminated all 800 miles from Miami to Greensboro! Now, we are extending our journey to a stretch goal of $7,000.<br><br>
-        My family first got involved with Light The Night after my grandfather, Frank, was diagnosed with blood cancer. To bring this campaign full circle, we are extending our route 300 miles north to Rockville, MD, where we first walked alongside my grandfather.<br><br>
-        Because this final stretch honors the heart of our mission, these remaining 300 miles are designated as <strong>Illuminating Gold Miles at $10 per mile</strong>. Every dollar in this final stretch carries our lantern further, powering critical research grants and patient support through Blood Cancer United. Let’s finish this journey together and keep the light shining bright for every patient, survivor, and family.
+        Together, we surpassed our initial $4,000 goal and illuminated all 800 miles from Miami to Greensboro. Now, we are extending our journey to a stretch goal of $7,000!<br><br>
+        My family joined Light The Night when my grandfather was diagnosed with blood cancer. Events like this do more than honor our loved ones, they raise the critical funds Blood Cancer United needs to support families and discover lifesaving treatments. That is why we walked together back then, and why I keep going today. We are carrying this mission 300 miles further to Rockville, MD, where we first walked by my grandfather's side.<br><br>
+        Because this final stretch represents the heart of our mission, these remaining 300 miles are designated as <strong>Illuminating Gold Miles at $10 per mile</strong>. Every dollar in this final leg carries our lantern further, directly powering lifesaving research and patient resources. Let’s finish this journey together and keep the light shining bright for every patient, survivor, and family.
         </p>
     </div>
     """,
