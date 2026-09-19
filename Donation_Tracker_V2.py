@@ -291,7 +291,7 @@ st.markdown(
         <p style="
             color: #FFFFFF !important;
             -webkit-text-fill-color: #FFFFFF !important;
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 500;
             line-height: 1.6;
             margin: 0;
