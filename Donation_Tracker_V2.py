@@ -11,7 +11,8 @@ st.set_page_config(
 # Constants & Asset Paths
 BACKGROUND_IMAGE = "assets/background_LTN.jpg"
 BCU_LOGO = "assets/bcu_logo_LTN.jpg"
-LANTERN_IMAGE = "assets/lantern.png"
+LANTERN_IMAGE_RED = "assets/lantern.png"
+LANTERN_IMAGE_GOLD = "assets/yellow_lantern.png"
 EXCEL_FILE = "LTN_2026_Donations.xlsx"
 
 # Geographic Coordinates
@@ -20,10 +21,15 @@ GSO_LON, GSO_LAT = -79.79472, 36.07667    # Greensboro, NC (Leg 1)
 ROC_LON, ROC_LAT = -77.1528, 39.0840      # Rockville, MD (Stretch Goal Target)
 
 LEG1_MILES = 800
-LEG2_MILES = 600
-TOTAL_DISTANCE_MILES = LEG1_MILES + LEG2_MILES  # 1,400 total miles
-COST_PER_MILE = 5
-GOAL_AMOUNT = TOTAL_DISTANCE_MILES * COST_PER_MILE  # $7,000 Stretch Goal
+LEG2_MILES = 300                          # Greensboro to Rockville (300 Gold Miles)
+TOTAL_DISTANCE_MILES = LEG1_MILES + LEG2_MILES  # 1,100 total physical miles
+
+LEG1_TARGET_AMOUNT = 4000.0               # $5/mile for 800 miles
+LEG2_TARGET_AMOUNT = 3000.0               # $10/mile for 300 miles ($3,000 total for Leg 2)
+GOAL_AMOUNT = LEG1_TARGET_AMOUNT + LEG2_TARGET_AMOUNT  # $7,000 Stretch Goal
+
+COST_PER_MILE_LEG1 = 5.0
+COST_PER_MILE_LEG2 = 10.0                 # $10 per Illuminating Gold Mile
 
 
 # Cached File Operations
@@ -40,19 +46,20 @@ def get_base64_image(file_path: str) -> str:
 def load_donation_data(file_path: str) -> pd.DataFrame:
     try:
         df = pd.read_excel(file_path)
-        df["Miles Sponsored"] = df["Donation Amount"] / COST_PER_MILE
         return df
     except Exception as e:
         st.error(f"Error loading donor data: {e}")
-        return pd.DataFrame(
-            columns=["Donor Name", "Donation Amount", "Miles Sponsored"]
-        )
+        return pd.DataFrame(columns=["Donor Name", "Donation Amount"])
 
 
 # Base64 Background & Image Processing
 bg_base64 = get_base64_image(BACKGROUND_IMAGE)
-lantern_base64 = get_base64_image(LANTERN_IMAGE)
-lantern_url = f"data:image/png;base64,{lantern_base64}" if lantern_base64 else ""
+
+lantern_red_base64 = get_base64_image(LANTERN_IMAGE_RED)
+lantern_gold_base64 = get_base64_image(LANTERN_IMAGE_GOLD)
+
+lantern_red_url = f"data:image/png;base64,{lantern_red_base64}" if lantern_red_base64 else ""
+lantern_gold_url = f"data:image/png;base64,{lantern_gold_base64}" if lantern_gold_base64 else ""
 
 bg_css = (
     f"""
@@ -140,15 +147,24 @@ st.divider()
 # Load Data & Calculations
 df = load_donation_data(EXCEL_FILE)
 total_raised = df["Donation Amount"].sum() if not df.empty else 0.0
-miles_flown = min(total_raised / COST_PER_MILE, TOTAL_DISTANCE_MILES)
-progress_pct = min(miles_flown / TOTAL_DISTANCE_MILES, 1.0)
+
+# Tiered Progress Calculation ($5/mi for Leg 1, $10/mi for Leg 2)
+if total_raised <= LEG1_TARGET_AMOUNT:
+    miles_flown = total_raised / COST_PER_MILE_LEG1
+else:
+    leg2_dollars = total_raised - LEG1_TARGET_AMOUNT
+    leg2_miles_flown = min(leg2_dollars / COST_PER_MILE_LEG2, LEG2_MILES)
+    miles_flown = LEG1_MILES + leg2_miles_flown
+
+miles_flown = min(miles_flown, TOTAL_DISTANCE_MILES)
+progress_pct = min(total_raised / GOAL_AMOUNT, 1.0)
 
 # Multi-Leg Line Segment & Lantern Coordinate Calculations
 lit_line_segments = []
 unlit_line_segments = []
 lantern_data = []
 
-LANTERN_SPACING_MILES = 50  # Preserved from your setup
+LANTERN_SPACING_MILES = 50
 
 if miles_flown <= LEG1_MILES:
     # --- Currently in Leg 1 (Miami -> Greensboro) ---
@@ -175,7 +191,7 @@ if miles_flown <= LEG1_MILES:
                     "lat": MIA_LAT + (GSO_LAT - MIA_LAT) * frac,
                     "lon": MIA_LON + (GSO_LON - MIA_LON) * frac,
                     "icon_data": {
-                        "url": lantern_url,
+                        "url": lantern_red_url,
                         "width": 256,
                         "height": 512,
                         "anchorY": 512,
@@ -187,8 +203,8 @@ if miles_flown <= LEG1_MILES:
             )
 else:
     # --- Leg 1 Complete! Currently in Leg 2 (Greensboro -> Rockville) ---
-    leg2_miles = miles_flown - LEG1_MILES
-    leg2_pct = leg2_miles / LEG2_MILES
+    leg2_miles_current = miles_flown - LEG1_MILES
+    leg2_pct = leg2_miles_current / LEG2_MILES
     current_lat = GSO_LAT + (ROC_LAT - GSO_LAT) * leg2_pct
     current_lon = GSO_LON + (ROC_LON - GSO_LON) * leg2_pct
 
@@ -203,7 +219,7 @@ else:
         {"start": [current_lon, current_lat], "end": [ROC_LON, ROC_LAT]}
     )
 
-    # Leg 1 Lanterns
+    # Leg 1 Red Lanterns
     num_l1 = int(LEG1_MILES // LANTERN_SPACING_MILES) + 1
     for frac in np.linspace(0, 1.0, num_l1):
         lantern_data.append(
@@ -211,7 +227,7 @@ else:
                 "lat": MIA_LAT + (GSO_LAT - MIA_LAT) * frac,
                 "lon": MIA_LON + (GSO_LON - MIA_LON) * frac,
                 "icon_data": {
-                    "url": lantern_url,
+                    "url": lantern_red_url,
                     "width": 256,
                     "height": 512,
                     "anchorY": 512,
@@ -221,15 +237,15 @@ else:
                 "angle": 0,
             }
         )
-    # Leg 2 Lanterns
-    num_l2 = max(1, int(leg2_miles // LANTERN_SPACING_MILES))
+    # Leg 2 Gold Lanterns (yellow_lantern.png)
+    num_l2 = max(1, int(leg2_miles_current // LANTERN_SPACING_MILES))
     for frac in np.linspace(0, leg2_pct, num_l2 + 1)[1:]:
         lantern_data.append(
             {
                 "lat": GSO_LAT + (ROC_LAT - GSO_LAT) * frac,
                 "lon": GSO_LON + (ROC_LON - GSO_LON) * frac,
                 "icon_data": {
-                    "url": lantern_url,
+                    "url": lantern_gold_url,
                     "width": 256,
                     "height": 512,
                     "anchorY": 512,
@@ -240,7 +256,7 @@ else:
             }
         )
 
-# 1. NEW STRETCH GOAL UPDATE BANNER
+# 1. STRETCH GOAL UPDATE BANNER
 st.markdown(
     """
     <div style="
@@ -259,7 +275,7 @@ st.markdown(
             margin-bottom: 10px;
             font-size: 22px;
         ">
-            🎉 CAMPAIGN UPDATE: EXPANDING OUR PATH TO ROCKVILLE, MD!
+            STRETCH GOAL: CARRYING THE LIGHT HOME TO ROCKVILLE
         </h3>
         <p style="
             color: #FFFFFF !important;
@@ -269,15 +285,16 @@ st.markdown(
             line-height: 1.6;
             margin: 0;
         ">
-        Together, we surpassed our $4,000 goal and illuminated all 800 miles from Miami to Greensboro!<br><br>
-        To honor where this fight truly began, we are extending our journey north to Rockville, Maryland—the exact place my family first participated in Light The Night alongside my grandfather. Every additional $5 carries our lantern another mile toward Rockville, honoring his legacy, celebrating the power of our community walking together, and raising vital funds for Blood Cancer United to give patients and families more precious time together.
+        Together, we surpassed our initial $4,000 goal and illuminated all 800 miles from Miami to Greensboro. Now, we are extending our journey to a stretch goal of $7,000.<br><br>
+        Our family first got involved with Light The Night after my grandfather was diagnosed with blood cancer. To bring this campaign full circle, we are extending our route 300 miles north to Rockville, MD, where we first walked alongside my grandfather.<br><br>
+        Because this final stretch honors the heart of our mission, these remaining 300 miles are designated as <strong>Illuminating Gold Miles at $10 per mile</strong>. Every dollar in this final stretch carries our lantern further, powering critical research grants and patient support through Blood Cancer United. Let’s finish this journey together and keep the light shining bright for every patient, survivor, and family.
         </p>
     </div>
     """,
     unsafe_allow_html=True,
 )
 
-# 2. ORIGINAL CAMPAIGN PURPOSE BLURB (Preserved)
+# 2. ORIGINAL CAMPAIGN PURPOSE BLURB
 st.markdown(
     """
     <div style="
