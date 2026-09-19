@@ -409,7 +409,7 @@ with col_right:
             initial_view_state=pdk.ViewState(
                 latitude=((MIA_LAT + ROC_LAT) / 2) - 0.5,
                 longitude=(MIA_LON + ROC_LON) / 2,
-                zoom=4.7,
+                zoom=5.0,
                 pitch=30,
             ),
             map_style="https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
