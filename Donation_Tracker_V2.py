@@ -175,7 +175,7 @@ lit_line_segments = []
 unlit_line_segments = []
 lantern_data = []
 
-LANTERN_SPACING_MILES = 50
+LANTERN_SPACING_MILES = 60
 
 if miles_flown <= LEG1_MILES:
     # --- Currently in Leg 1 (Miami -> Greensboro) ---
