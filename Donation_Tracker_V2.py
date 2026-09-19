@@ -275,7 +275,8 @@ st.markdown(
             margin-bottom: 10px;
             font-size: 22px;
         ">
-            STRETCH GOAL: CARRYING THE LIGHT HOME TO ROCKVILLE
+            CAMPAIGN UPDATE: EXPANDING OUR PATH TO ROCKVILLE, MD!
+        </h3>
         </h3>
         <p style="
             color: #FFFFFF !important;
@@ -285,8 +286,8 @@ st.markdown(
             line-height: 1.6;
             margin: 0;
         ">
-        Together, we surpassed our initial $4,000 goal and illuminated all 800 miles from Miami to Greensboro. Now, we are extending our journey to a stretch goal of $7,000.<br><br>
-        Our family first got involved with Light The Night after my grandfather was diagnosed with blood cancer. To bring this campaign full circle, we are extending our route 300 miles north to Rockville, MD, where we first walked alongside my grandfather.<br><br>
+        Together, we surpassed our initial $4,000 goal and illuminated all 800 miles from Miami to Greensboro! Now, we are extending our journey to a stretch goal of $7,000.<br><br>
+        My family first got involved with Light The Night after my grandfather, Frank, was diagnosed with blood cancer. To bring this campaign full circle, we are extending our route 300 miles north to Rockville, MD, where we first walked alongside my grandfather.<br><br>
         Because this final stretch honors the heart of our mission, these remaining 300 miles are designated as <strong>Illuminating Gold Miles at $10 per mile</strong>. Every dollar in this final stretch carries our lantern further, powering critical research grants and patient support through Blood Cancer United. Let’s finish this journey together and keep the light shining bright for every patient, survivor, and family.
         </p>
     </div>
