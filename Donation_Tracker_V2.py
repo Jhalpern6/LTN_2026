@@ -151,7 +151,7 @@ with col_logo:
     st.image(BCU_LOGO, use_container_width=True)
 with col_title:
     st.title("Illuminating The Way Together")
-    st.subheader("Carrying the lantern from Miami, FL to Rockville, MD")
+    st.subheader("Carrying the lantern from Miami, FL to Greensboro, NC")
 
 st.divider()
 
@@ -178,7 +178,7 @@ lantern_data = []
 LANTERN_SPACING_MILES = 60
 
 if miles_flown <= LEG1_MILES:
-    # --- Currently in Leg 1 (Miami -> Greensboro) ---
+    # Currently in Leg 1 (Miami -> Greensboro)
     leg1_pct = miles_flown / LEG1_MILES
     current_lat = MIA_LAT + (GSO_LAT - MIA_LAT) * leg1_pct
     current_lon = MIA_LON + (GSO_LON - MIA_LON) * leg1_pct
