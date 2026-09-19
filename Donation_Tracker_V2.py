@@ -97,13 +97,18 @@ st.markdown(
         font-weight: 800 !important;
     }}
 
-    /* Metric Cards Styling */
+    /* Metric Cards Styling - Adjusted for Height and Alignment */
     div[data-testid="stMetric"] {{
         background-color: rgba(30, 41, 59, 0.85) !important;
         border: 1.5px solid rgba(216, 35, 42, 0.8) !important;
         border-radius: 8px !important;
-        padding: 14px !important;
+        padding: 20px 16px !important;
+        min-height: 135px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15) !important;
+        margin-bottom: 16px !important;
     }}
 
     div[data-testid="stMetricLabel"] * {{
@@ -347,7 +352,7 @@ with col_left:
         "Miles Still to Light",
         f"{max(0.0, TOTAL_DISTANCE_MILES - miles_flown):,.1f} mi",
     )
-    st.metric("Stretch Target Met", f"{progress_pct * 100:.1f}%")
+    st.metric("Stretch Goal Met", f"{progress_pct * 100:.1f}%")
 
 with col_right:
     # 1. Gold Glow Layer
@@ -392,7 +397,7 @@ with col_right:
         pickable=False,
     )
 
-    # PyDeck Map Display (Centering view to frame Miami to Rockville)
+    # PyDeck Map Display (Expanded map height to 660px)
     st.pydeck_chart(
         pdk.Deck(
             layers=[
@@ -409,7 +414,7 @@ with col_right:
             ),
             map_style="https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
         ),
-        height=525,
+        height=660,
     )
 
 st.markdown(
