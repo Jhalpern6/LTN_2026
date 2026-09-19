@@ -213,7 +213,7 @@ if miles_flown <= LEG1_MILES:
                 }
             )
 else:
-    # --- Leg 1 Complete! Currently in Leg 2 (Greensboro -> Rockville) ---
+    # Leg 1 Complete! Currently in Leg 2 (Greensboro -> Rockville)
     leg2_miles_current = miles_flown - LEG1_MILES
     leg2_pct = leg2_miles_current / LEG2_MILES
     current_lat = GSO_LAT + (ROC_LAT - GSO_LAT) * leg2_pct
@@ -414,7 +414,7 @@ with col_right:
             ),
             map_style="https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
         ),
-        height=660,
+        height=670,
     )
 
 st.markdown(
