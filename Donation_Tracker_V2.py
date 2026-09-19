@@ -407,7 +407,7 @@ with col_right:
                 icon_layer,
             ],
             initial_view_state=pdk.ViewState(
-                latitude=((MIA_LAT + ROC_LAT) / 2) - 0.7,
+                latitude=((MIA_LAT + ROC_LAT) / 2) - 0.8,
                 longitude=(MIA_LON + ROC_LON) / 2,
                 zoom=5.0,
                 pitch=30,
