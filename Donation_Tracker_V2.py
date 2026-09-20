@@ -298,7 +298,7 @@ st.markdown(
         ">
         Together, we surpassed our initial $4,000 goal and illuminated all 800 miles from Miami to Greensboro. Now, we are extending our journey to a stretch goal of $7,000!<br><br>
         My family joined Light The Night when my grandfather was diagnosed with blood cancer. Events like this do more than honor our loved ones, they raise the critical funds Blood Cancer United needs to support families and discover lifesaving treatments. That is why we walked together back then, and why I keep going today. We are carrying this mission 300 miles further to Rockville, MD, where we first walked by my grandfather's side.<br><br>
-        Because this final stretch represents the heart of our mission, these remaining 300 miles are designated as <strong>Illuminating Gold Miles at $10 per mile</strong>. Every dollar in this final leg carries our lantern further, directly powering lifesaving research and patient resources. Let’s finish this journey together and keep the light shining bright for every patient, survivor, and family.
+        Because this final stretch represents the heart of our mission, these remaining 300 miles are designated as <strong>Illuminating Gold Miles at $10 per mile</strong>. Every dollar in this final leg carries our lantern further, directly powering lifesaving research and patient resources. Let’s keep the light shining bright for every patient, survivor, and family.
         </p>
     </div>
     """,
